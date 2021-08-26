@@ -30,7 +30,7 @@ const Main = () => {
     return(
         <MainContainer>
 					<ImgContainer>
-					<MainImg src={mainImg}/>
+						<MainImg src={mainImg}/>
 					</ImgContainer>
 					<TitleContainer>
 						Jeon Hee Eun, Pottery Artist
