@@ -10,7 +10,7 @@ const FullContainer = styled.div`
 	flex-direction: row;
 	justify-content: center;
 	align-items: felx-start;
-	height: 70rem;
+	height: 73rem;
 `;
 
 const MainContainer = styled.div`
@@ -55,9 +55,10 @@ const Main = () => {
 				</MainContainer>
 				<UserNavigation></UserNavigation>
 			</FullContainer>     
-			
+
 			</Fragment>
-			
+				
+				
     );
 }
 
