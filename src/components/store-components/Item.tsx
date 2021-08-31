@@ -1,5 +1,7 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
+import { JsxEmit } from 'typescript';
 import item1 from '../../assets/img/item1.jpg'; // test용 이미지. 추후에는 Store로부터 받을거임
 
 const ItemContainer = styled.div`
@@ -8,6 +10,8 @@ const ItemContainer = styled.div`
 	align-items: center;
 
 	width: 15rem;
+
+
 `;
 
 const ImgContainer = styled.div`
@@ -16,6 +20,11 @@ const ImgContainer = styled.div`
 `;
 
 const Img = styled.img`
+
+	&:hover {
+		// box-shadow: 20px 20px 10px #b4b4b4;
+		opacity: 0.5;
+	}
 	max-width:100%;
 	max-height:100%;
 `;
@@ -42,8 +51,9 @@ type ItemProps = {
 	url: string;
 }
 
-const Item: React.FC<ItemProps> = ({name, url}) => {
+const Item = ({name, url} : ItemProps) => {
 	return(
+		<Link to="/">
 		<ItemContainer>
 			<ImgContainer>
 				<ImgContainer><Img src={url} alt=""/></ImgContainer>
@@ -51,6 +61,8 @@ const Item: React.FC<ItemProps> = ({name, url}) => {
 			<Title>{name}</Title>
 			<Buynow>Buy Now!</Buynow>
 		</ItemContainer>
+		</Link>
+		
 	);
 }
 
