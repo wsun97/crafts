@@ -45,16 +45,16 @@ const ItemsContainer = styled.div`
 const PagenationContainer = styled.div`
 	display: flex;
 	font-size: 1.3rem;
-	color: #b4b4b4;
 
 `;
 
-const Pagenation = styled.a`
+const Pagenation = styled.div<{disabled: boolean}>`
 	margin: 0 1.3rem 4rem 1.3rem;
+	color: ${(props) => props.disabled ? "grey" : "black" };
 	&:hover {
-		color: black;
+		color: ${(props) => props.disabled ? null : "#b4b4b4"};
 	}
-	cursor: pointer;
+	cursor: ${(props) => props.disabled ? null : "pointer"};
 `;
 
 const Store: React.FC = () => {
@@ -98,9 +98,6 @@ const Store: React.FC = () => {
 			let start = (currentPageNum - 1) * ITEMS_PER_PAGE;
 			let end = currentPageNum  * ITEMS_PER_PAGE;
 
-			if(currentPageNum === items.length){ 
-				end = (currentPageNum - 1) * ITEMS_PER_PAGE + numOfLeftItems;
-			} 
 			return items.slice(start, end);
 		})
 
@@ -139,8 +136,8 @@ const Store: React.FC = () => {
 							})}
 						</ItemsContainer>
 						<PagenationContainer>
-							<Pagenation onClick={clickBack}>{'<'}</Pagenation>
-							<Pagenation onClick={clickNext}>{'>'}</Pagenation>
+							<Pagenation disabled={currentPageNum === 1} onClick={clickBack}>{'<'}</Pagenation>
+							<Pagenation disabled={currentPageNum === numOfPages} onClick={clickNext}>{'>'}</Pagenation>
 						</PagenationContainer>
 					</Fragment> }
 					<Footer></Footer>
