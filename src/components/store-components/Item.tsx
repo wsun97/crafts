@@ -10,8 +10,6 @@ const ItemContainer = styled.div`
 	align-items: center;
 
 	width: 15rem;
-
-
 `;
 
 const ImgContainer = styled.div`
@@ -50,6 +48,8 @@ type ItemProps = {
 	name: string;
 	url: string;
 }
+
+// Link로 구매페이지 넘어갈 때, route로 키 넣어서 전달
 
 const Item = ({name, url} : ItemProps) => {
 	return(

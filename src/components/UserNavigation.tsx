@@ -9,8 +9,7 @@ const UserNaviContainer = styled.div`
 	font-size: 1.1rem;
 	right:0;
 
-	margin-right: 3%;
-
+	margin-right: 11%;
 	font-family: Times, "Times New Roman", Georgia, serif;
 	color: #b4b4b4;
 
@@ -31,7 +30,7 @@ const UserNavigation = () => {
 	return(
 		<UserNaviContainer>
 			<UserUl>
-				<UserLi>Cart(0)</UserLi>
+				<UserLi>Cart({1})</UserLi>
 				<UserLi>My Page</UserLi>
 			</UserUl>
 		</UserNaviContainer>

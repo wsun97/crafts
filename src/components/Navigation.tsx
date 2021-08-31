@@ -10,7 +10,7 @@ const NaviContainer = styled.div`
 
 	left:0;
 
-	margin-left: 3%;
+	margin-left: 8%;
 `;
 
 const HomeDiv = styled.div`

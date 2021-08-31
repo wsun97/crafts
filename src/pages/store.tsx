@@ -73,7 +73,7 @@ const Store: React.FC = () => {
 			{name : "item8", url: item1},
 			{name : "item9", url: item1},
 			{name : "item10", url: item1},
-			{name : "item11", url: item1},
+			// {name : "item11", url: item1},
 		];
 	});
 	const [numOfPages, setNumOfPages] = useState<number>(1);
