@@ -18,6 +18,11 @@ const FullContainer = styled.div`
 	height: 90rem;
 `;
 
+const NoItem = styled.div`
+	font-family: Times, "Times New Roman", Georgia, serif;
+	font-size: 0.9rem;
+`;
+
 const StoreContainer = styled.div`
 	display: flex;
 	flex-direction: column;
@@ -39,72 +44,112 @@ const ItemsContainer = styled.div`
 
 const PagenationContainer = styled.div`
 	display: flex;
-	font-size: 1rem;
+	font-size: 1.3rem;
 	color: #b4b4b4;
+
 `;
 
-const Pagenation = styled.div`
-	margin: 0 1rem 4rem 1rem;
+const Pagenation = styled.a`
+	margin: 0 1.3rem 4rem 1.3rem;
+	&:hover {
+		color: black;
+	}
+	cursor: pointer;
 `;
 
-const Store = () => {
+const Store: React.FC = () => {
 
 	const ITEMS_PER_PAGE: number = 4;
-	const [items, setItems] = useState([]);
-	const [numOfPages, setNumOfPages] = useState(1);
-	const [leftItems, setLeftItems] = useState(0);
+
+	const [items, setItems] = useState<Array<any>>(() => {
+		return  [ // 나중에 back에서 받아올것
+			{name : "item1", url: item1},
+			{name : "item2", url: item1},
+			{name : "item3", url: item1},
+			{name : "item4", url: item1},
+			{name : "item5", url: item1},
+			{name : "item6", url: item1},
+			{name : "item7", url: item1},
+			{name : "item8", url: item1},
+			{name : "item9", url: item1},
+			{name : "item10", url: item1},
+			{name : "item11", url: item1},
+		];
+	});
+	const [numOfPages, setNumOfPages] = useState<number>(1);
+	const [numOfLeftItems, setNumOfLeftItems] = useState<number>(0);
+	const [currentPageNum, setCurrentPageNum] = useState<number>(1);
+	const [showItems, setShowItems] = useState<Array<any>>([]);
 
 	useEffect(() => {
-		console.log('mounted');
+		// 의문, set등의 상태 관리 함수의 경우 if문 아래에 쓰는 것이
+		// 리액트를 혼동하게 만들 수 있다고 하는데(조건에 set하고 안하고 패턴이 바껴서 버그 생길 수 있다고..)
+		// 해당 useEffect의 경우 마운트, 언마운트 시에만 실행되는데 아래처럼 쓰면 안될까?
+		if(items.length) {
+			setNumOfPages(Math.ceil(items.length / ITEMS_PER_PAGE));
+			setNumOfLeftItems(items.length % ITEMS_PER_PAGE);
+			setShowItems(items.slice(0, ITEMS_PER_PAGE + 1));
+		}
 
-		setItems([]); // 여기 다시 
+	}, []);
 
-	}, [])
+	useEffect(() => {
+		setShowItems(() => {
+			let start = (currentPageNum - 1) * ITEMS_PER_PAGE;
+			let end = currentPageNum  * ITEMS_PER_PAGE;
 
-	const Items: Array<Object> = [ // 나중에 back에서 받아올것들
-		{name : "item1", url: item1},
-		{name : "item2", url: item1},
-		{name : "item3", url: item1},
-		{name : "item4", url: item1},
-		{name : "item5", url: item1},
-		{name : "item6", url: item1},
-		{name : "item7", url: item1},
-		{name : "item8", url: item1},
-		{name : "item9", url: item1},
-		{name : "item10", url: item1},
-		{name : "item11", url: item1},
-	];
-
-/* 	if(!_.isEmpty(Items)) {
-		numOfPages = Math.floor(Items.length / ITEMS_PER_PAGE);
-		leftItems = Items.length % ITEMS_PER_PAGE;
-	} */
+			if(currentPageNum === items.length){ 
+				end = (currentPageNum - 1) * ITEMS_PER_PAGE + numOfLeftItems;
+			} 
+			return items.slice(start, end);
+		})
 
 
+	}, [currentPageNum, /**/items, numOfLeftItems]);
 
-	
+	const clickNext = (): void => {
+		console.log('cickNext', currentPageNum);
+		if(currentPageNum >= numOfPages) {
+			return;
+		}
+		
+		setCurrentPageNum(currentPageNum + 1);		
+	};
+
+	const clickBack = (): void => {
+		console.log('clickBack', currentPageNum);
+		if(currentPageNum === 1) {
+			return;
+		}
+		setCurrentPageNum(currentPageNum - 1);
+	}
+
     return(
 			<Fragment>
 				<FullContainer>
-				<Navigation></Navigation>
+					<Navigation></Navigation>
 				<StoreContainer>
-					<ItemsContainer>
-						<Item></Item>
-						<Item></Item>
-						<Item></Item>
-						<Item></Item>
-					</ItemsContainer>
-					<PagenationContainer>
-						<Pagenation>{'<'}</Pagenation>
-						<Pagenation>{'>'}</Pagenation>
-					</PagenationContainer>
+					{!items.length ? 
+						<NoItem>No items can buy in store.</NoItem> 
+						:
+					<Fragment>
+						<ItemsContainer>
+							{showItems.map((row) => {
+								return <Item name={row.name} url={row.url}></Item>
+							})}
+						</ItemsContainer>
+						<PagenationContainer>
+							<Pagenation onClick={clickBack}>{'<'}</Pagenation>
+							<Pagenation onClick={clickNext}>{'>'}</Pagenation>
+						</PagenationContainer>
+					</Fragment> }
 					<Footer></Footer>
 				</StoreContainer>
 				<UserNavigation></UserNavigation>
 			</FullContainer> 
 			</Fragment>
 			   
-		)  
+		) 
 }
 
 export default Store;
