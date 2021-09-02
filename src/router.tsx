@@ -5,6 +5,7 @@ import Store from './pages/store';
 import Participants from './pages/participants';
 import Contact from './pages/contact';
 import WorkProcess from './pages/work-process';
+import BuyPage from './components/store-components/BuyPage';
 
 const router = () => {
   return(
@@ -14,6 +15,7 @@ const router = () => {
 			<Route exact path="/work-process" component={WorkProcess}></Route>
 			<Route exact path="/participants" component={Participants}></Route>
 			<Route exact path="/contact" component={Contact}></Route>
+			<Route exact path="/buy/:id/:name" component={BuyPage}></Route>
     </BrowserRouter>
   )
 }

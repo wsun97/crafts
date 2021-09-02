@@ -2,7 +2,6 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 import { JsxEmit } from 'typescript';
-import item1 from '../../assets/img/item1.jpg'; // test용 이미지. 추후에는 Store로부터 받을거임
 
 const ItemContainer = styled.div`
 	display: flex;
@@ -47,13 +46,17 @@ const Buynow = styled.div`
 type ItemProps = {
 	name: string;
 	url: string;
-}
+	id: string;
+};
 
 // Link로 구매페이지 넘어갈 때, route로 키 넣어서 전달
 
-const Item = ({name, url} : ItemProps) => {
+const Item = ({name, url, id} : ItemProps) => {
+
+	console.log('????????????????????', id);
+	console.log('!!!!!!!!!!!!!!!!!!!!', name);
 	return(
-		<Link to="/">
+		<Link to={`/buy/${id}/${name}`}>
 		<ItemContainer>
 			<ImgContainer>
 				<ImgContainer><Img src={url} alt=""/></ImgContainer>

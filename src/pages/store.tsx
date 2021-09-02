@@ -63,16 +63,16 @@ const Store: React.FC = () => {
 
 	const [items, setItems] = useState<Array<any>>(() => {
 		return  [ // 나중에 back에서 받아올것
-			{name : "item1", url: item1},
-			{name : "item2", url: item1},
-			{name : "item3", url: item1},
-			{name : "item4", url: item1},
-			{name : "item5", url: item1},
-			{name : "item6", url: item1},
-			{name : "item7", url: item1},
-			{name : "item8", url: item1},
-			{name : "item9", url: item1},
-			{name : "item10", url: item1},
+			{name : "item1", url: item1, id:1},
+			{name : "item2", url: item1, id:2},
+			{name : "item3", url: item1, id:3},
+			{name : "item4", url: item1, id:4},
+			{name : "item5", url: item1, id:5},
+			{name : "item6", url: item1, id:6},
+			{name : "item7", url: item1, id:7},
+			{name : "item8", url: item1, id:8},
+			{name : "item9", url: item1, id:9},
+			{name : "item10", url: item1, id:10},
 			// {name : "item11", url: item1},
 		];
 	});
@@ -132,7 +132,8 @@ const Store: React.FC = () => {
 					<Fragment>
 						<ItemsContainer>
 							{showItems.map((row) => {
-								return <Item name={row.name} url={row.url}></Item>
+								console.log('>>>>>>>>>>>>>>>>>>', row.id);
+								return <Item name={row.name} id={row.id} url={row.url}></Item>
 							})}
 						</ItemsContainer>
 						<PagenationContainer>
